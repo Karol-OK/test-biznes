@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Test – Biznes i Zarządzanie</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .result {
+            margin-top: 30px;
+            padding: 15px;
+            border: 2px solid black;
+            display: none;
+        }
+        .correct {
+            color: green;
+        }
+        .wrong {
+            color: red;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Test – Biznes i Zarządzanie</h1>
+
+<form id="quiz">
+
+    <div class="question">
+        <p>1. Czym jest pieniądz?</p>
+        <label><input type="radio" name="q1" value="A"> A. Środkiem płatniczym</label><br>
+        <label><input type="radio" name="q1" value="B"> B. Zabawką</label><br>
+        <label><input type="radio" name="q1" value="C"> C. Dokumentem szkolnym</label><br>
+        <label><input type="radio" name="q1" value="D"> D. Jedzeniem</label>
+    </div>
+
+    <div class="question">
+        <p>2. Co to jest budżet?</p>
+        <label><input type="radio" name="q2" value="A"> A. Lista zakupów</label><br>
+        <label><input type="radio" name="q2" value="B"> B. Plan wydatków i dochodów</label><br>
+        <label><input type="radio" name="q2" value="C"> C. Konto bankowe</label><br>
+        <label><input type="radio" name="q2" value="D"> D. Praca</label>
+    </div>
+
+    <div class="question">
+        <p>3. Kim jest klient?</p>
+        <label><input type="radio" name="q3" value="A"> A. Osoba sprzedająca</label><br>
+        <label><input type="radio" name="q3" value="B"> B. Właściciel firmy</label><br>
+        <label><input type="radio" name="q3" value="C"> C. Osoba kupująca produkt lub usługę</label><br>
+        <label><input type="radio" name="q3" value="D"> D. Pracownik szkoły</label>
+    </div>
+
+    <div class="question">
+        <p>4. Co to jest firma?</p>
+        <label><input type="radio" name="q4" value="A"> A. Grupa uczniów</label><br>
+        <label><input type="radio" name="q4" value="B"> B. Organizacja zarabiająca pieniądze</label><br>
+        <label><input type="radio" name="q4" value="C"> C. Sklep szkolny</label><br>
+        <label><input type="radio" name="q4" value="D"> D. Bank</label>
+    </div>
+
+    <div class="question">
+        <p>5. Co oznacza oszczędzanie?</p>
+        <label><input type="radio" name="q5" value="A"> A. Wydawanie wszystkich pieniędzy</label><br>
+        <label><input type="radio" name="q5" value="B"> B. Pożyczanie pieniędzy</label><br>
+        <label><input type="radio" name="q5" value="C"> C. Odkładanie pieniędzy na później</label><br>
+        <label><input type="radio" name="q5" value="D"> D. Kupowanie drogich rzeczy</label>
+    </div>
+
+    <div class="question">
+        <p>6. Kim jest przedsiębiorca?</p>
+        <label><input type="radio" name="q6" value="A"> A. Osoba prowadząca własną firmę</label><br>
+        <label><input type="radio" name="q6" value="B"> B. Uczeń</label><br>
+        <label><input type="radio" name="q6" value="C"> C. Klient</label><br>
+        <label><input type="radio" name="q6" value="D"> D. Nauczyciel</label>
+    </div>
+
+    <div class="question">
+        <p>7. Co to jest reklama?</p>
+        <label><input type="radio" name="q7" value="A"> A. Nauka w szkole</label><br>
+        <label><input type="radio" name="q7" value="B"> B. Informowanie o produkcie lub usłudze</label><br>
+        <label><input type="radio" name="q7" value="C"> C. Praca w firmie</label><br>
+        <label><input type="radio" name="q7" value="D"> D. Rodzaj podatku</label>
+    </div>
+
+    <div class="question">
+        <p>8. Co to jest praca zespołowa?</p>
+        <label><input type="radio" name="q8" value="A"> A. Praca tylko jednej osoby</label><br>
+        <label><input type="radio" name="q8" value="B"> B. Współpraca kilku osób</label><br>
+        <label><input type="radio" name="q8" value="C"> C. Praca w domu</label><br>
+        <label><input type="radio" name="q8" value="D"> D. Odpoczynek</label>
+    </div>
+
+    <button type="button" onclick="checkTest()">Zakończ test</button>
+</form>
+
+<div class="result" id="result"></div>
+
+<script>
+    const correctAnswers = {
+        q1: "A",
+        q2: "B",
+        q3: "C",
+        q4: "B",
+        q5: "C",
+        q6: "A",
+        q7: "B",
+        q8: "B"
+    };
+
+    function checkTest() {
+        let points = 0;
+        let details = "";
+
+        for (let i = 1; i <= 8; i++) {
+            const q = "q" + i;
+            const selected = document.querySelector(`input[name="${q}"]:checked`);
+
+            if (!selected) {
+                alert("Zaznacz odpowiedzi na wszystkie pytania!");
+                return;
+            }
+
+            if (selected.value === correctAnswers[q]) {
+                points++;
+                details += `<p class="correct">Pytanie ${i}: poprawnie</p>`;
+            } else {
+                details += `<p class="wrong">Pytanie ${i}: źle (poprawna: ${correctAnswers[q]})</p>`;
+            }
+        }
+
+        const percent = (points / 8) * 100;
+
+        document.getElementById("result").style.display = "block";
+        document.getElementById("result").innerHTML = `
+            <h2>Wynik</h2>
+            <p><strong>Punkty:</strong> ${points} / 8</p>
+            <p><strong>Procent:</strong> ${percent}%</p>
+            <h3>Odpowiedzi:</h3>
+            ${details}
+        `;
+    }
+</script>
+
+</body>
+</html>
